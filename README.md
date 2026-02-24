@@ -1,4 +1,4 @@
-﻿> **Creators and Authors:**   Miroslav Tsintsarski, Stanislav Vladimirov
+> **Creators and Authors:**   Miroslav Tsintsarski, Stanislav Vladimirov
 
 > **Emails:**   127ikr@unibit.bg, 132ikr@unibit.bg  
 
