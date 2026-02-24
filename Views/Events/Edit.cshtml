@@ -1,0 +1,123 @@
+﻿@model SchoolEvents.Models.SchoolEvent
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="container py-4">
+    <div class="card p-4 shadow-lg">
+        <h2 class="fw-bold text-light mb-4">✏️ Edit Event</h2>
+
+        <form asp-action="Edit" method="post" novalidate>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label text-light"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label text-light"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="StartAt" class="form-label text-light"></label>
+                    <input asp-for="StartAt" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="StartAt" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="EndAt" class="form-label text-light"></label>
+                    <input asp-for="EndAt" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="EndAt" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="Type" class="form-label text-light"></label>
+                    <select asp-for="Type" asp-items="Html.GetEnumSelectList<SchoolEvents.Models.EventType>()" class="form-control"></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Location" class="form-label text-light"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label asp-for="Capacity" class="form-label text-light"></label>
+                    <input asp-for="Capacity" class="form-control" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="OrganizerId" class="form-label text-light">Organizer</label>
+                    <select asp-for="OrganizerId" asp-items="(SelectList)ViewBag.OrganizerId" class="form-control"></select>
+                    <span asp-validation-for="OrganizerId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-outline-light">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .card {
+        background-color: var(--card-bg);
+        color: var(--text-main);
+    }
+
+    .form-control {
+        background-color: #fff;
+        color: #1A3263;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+    }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 0.2rem rgba(250,185,91,0.25);
+        }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background-color: var(--accent);
+        color: var(--bg-main);
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #FFC966;
+            color: var(--bg-main);
+        }
+
+    .btn-outline-light {
+        color: var(--text-main);
+        border-color: var(--accent);
+    }
+
+        .btn-outline-light:hover {
+            background-color: var(--accent);
+            color: var(--bg-main);
+            border-color: var(--accent);
+        }
+
+    .text-danger {
+        font-weight: 600;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

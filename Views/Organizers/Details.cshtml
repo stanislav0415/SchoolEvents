@@ -1,0 +1,78 @@
+﻿@model SchoolEvents.Models.Organizer
+@{
+    ViewData["Title"] = "Organizer Details";
+}
+
+<div class="container d-flex justify-content-center py-5">
+
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">👤 Organizer Details</h2>
+            </div>
+
+            <div class="details-list">
+
+                <div class="detail-row">
+                    <span class="label">Name</span>
+                    <span class="value">@Model.Name</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="label">Email</span>
+                    <span class="value">@Model.Email</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="label">Phone</span>
+                    <span class="value">@Model.Phone</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="label">Department</span>
+                    <span class="value">@Model.Department</span>
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-outline-light">
+                    ← Back
+                </a>
+
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                    Edit
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .details-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background-color: var(--card-bg);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .label {
+        font-weight: 600;
+        color: var(--accent);
+    }
+
+    .value {
+        color: var(--text-main);
+    }
+</style>

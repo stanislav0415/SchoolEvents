@@ -1,0 +1,72 @@
+﻿@model SchoolEvents.ViewModels.EventIndexVm
+@{
+    ViewData["Title"] = "Events";
+}
+
+<div class="container py-4">
+
+    <h1 class="fw-bold mb-4 text-light">📅 School Events</h1>
+
+    <!-- Filters -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label text-light">From</label>
+                <input asp-for="Filter.From" type="date" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label text-light">To</label>
+                <input asp-for="Filter.To" type="date" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label text-light">Type</label>
+                <select asp-for="Filter.Type" asp-items="Html.GetEnumSelectList<SchoolEvents.Models.EventType>()" class="form-select">
+                    <option value="">All</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-light">Search</label>
+                <input asp-for="Filter.Search" class="form-control" placeholder="Title or location" />
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-50">Filter</button>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a asp-action="Create" class="btn btn-outline-light w-50">Create New</a>
+                }
+            </div>
+        </div>
+    </form>
+
+    @if (!Model.Events.Any())
+    {
+        <p class="text-light">No events found.</p>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in Model.Events)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card shadow-lg h-100" style="background-color: var(--card-bg);">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-light fw-bold">@item.Title</h5>
+                            <p class="card-text text-light mb-1"><strong>When:</strong> @item.StartAt:g - @item.EndAt:g</p>
+                            <p class="card-text text-light mb-1"><strong>Type:</strong> @item.Type</p>
+                            <p class="card-text text-light mb-1"><strong>Location:</strong> @item.Location</p>
+                            <p class="card-text text-light mb-3"><strong>Organizer:</strong> @item.Organizer?.Name</p>
+                            <div class="mt-auto d-flex gap-2 flex-wrap">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-light btn-sm flex-fill">Details</a>
+                                @if (User.IsInRole("Teacher"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm flex-fill">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm flex-fill">Delete</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
