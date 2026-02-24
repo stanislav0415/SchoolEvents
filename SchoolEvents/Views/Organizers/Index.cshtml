@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SchoolEvents.Models.Organizer>
+@{
+    ViewData["Title"] = "Organizers";
+}
+
+<div class="container py-4">
+
+    <div class="card p-4">
+
+      
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">👩‍🏫 Organizers</h2>
+
+            <a asp-action="Create" class="btn btn-primary">
+               Create
+            </a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <h5>No organizers yet</h5>
+                <p>Create your first organizer to get started.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle table-hover organizers-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Department</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@item.Name</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Department</td>
+
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="action-link me-2">View</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="action-link me-2">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="action-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<style>
+    .organizers-table {
+        color: var(--text-main);
+    }
+
+        .organizers-table thead {
+            background-color: var(--bg-main);
+        }
+
+        .organizers-table th {
+            border: none;
+        }
+
+        .organizers-table td {
+            border-color: rgba(255,255,255,0.08);
+        }
+
+        .organizers-table tr:hover {
+            background-color: rgba(255,255,255,0.04);
+        }
+
+    .action-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .action-link:hover {
+            color: #FFC966;
+        }
+
+    .action-danger {
+        color: #FF4C4C;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .action-danger:hover {
+            color: #ff7a7a;
+        }
+</style>

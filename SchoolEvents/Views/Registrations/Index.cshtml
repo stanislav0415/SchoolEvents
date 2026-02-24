@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SchoolEvents.Models.EventRegistration>
+@{
+    ViewData["Title"] = "Registrations";
+}
+
+<div class="container py-4">
+    <div class="card p-4 shadow-lg">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">📝 Registrations</h2>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <h5>No registrations yet</h5>
+                <p>Once participants register, they will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle registrations-table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Event</th>
+                            <th>Participant</th>
+                            <th>Registered At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reg in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@reg.SchoolEvent?.Title</td>
+                                <td>@reg.Participant?.FullName</td>
+                                <td>@reg.RegisteredAt.ToString("g")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .registrations-table {
+        color: var(--text-main);
+        background-color: var(--card-bg);
+    }
+
+        .registrations-table th {
+            border: none;
+            font-weight: 600;
+        }
+
+        .registrations-table td {
+            border-color: rgba(255,255,255,0.08);
+        }
+
+        .registrations-table tr:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .registrations-table tbody td {
+            vertical-align: middle;
+        }
+
+    .card {
+        background-color: var(--card-bg);
+        color: var(--text-main);
+    }
+
+    .table-dark th {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+    }
+
+    h2 {
+        color: var(--text-main);
+    }
+</style>

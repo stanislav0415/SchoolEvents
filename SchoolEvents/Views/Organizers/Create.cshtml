@@ -1,0 +1,63 @@
+﻿@model SchoolEvents.Models.Organizer
+@{
+    ViewData["Title"] = "Create Organizer";
+}
+
+<div class="container d-flex justify-content-center py-5">
+
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">➕ Create Organizer</h2>
+                <p class="mb-0">Add a teacher or department organizer</p>
+            </div>
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" placeholder="Name" />
+                    <label asp-for="Name"></label>
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Phone" class="form-control" placeholder="Phone" />
+                    <label asp-for="Phone"></label>
+                    <span asp-validation-for="Phone" class="text-danger small"></span>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Department" class="form-control" placeholder="Department" />
+                    <label asp-for="Department"></label>
+                    <span asp-validation-for="Department" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-light">
+                        ← Back
+                    </a>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        Create
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
