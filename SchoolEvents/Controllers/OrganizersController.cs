@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolEvents.Data;
@@ -7,10 +8,12 @@ using SchoolEvents.Models;
 namespace SchoolEvents.Controllers;
 
 [Authorize(Roles = "Teacher")]
-public class OrganizersController : Controller
+public class OrganizersController(
+    ApplicationDbContext db,
+    UserManager<IdentityUser> userManager) : Controller
 {
-    private readonly ApplicationDbContext _db;
-    public OrganizersController(ApplicationDbContext db) => _db = db;
+    private readonly ApplicationDbContext _db = db;
+    private readonly UserManager<IdentityUser> _userManager = userManager;
 
     public async Task<IActionResult> Index()
         => View(await _db.Organizers.AsNoTracking().ToListAsync());
@@ -27,7 +30,16 @@ public class OrganizersController : Controller
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Organizer organizer)
     {
-        if (!ModelState.IsValid) return View(organizer);
+        var user = await _userManager.FindByEmailAsync(organizer.Email);
+        if (user is null)
+        {
+            ModelState.AddModelError(nameof(organizer.Email),
+                "No user exists with this email.");
+        }
+
+        if (!ModelState.IsValid) 
+            return View(organizer);
+
         _db.Organizers.Add(organizer);
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
